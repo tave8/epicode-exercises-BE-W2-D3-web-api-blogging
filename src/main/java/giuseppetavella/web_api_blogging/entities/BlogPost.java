@@ -35,12 +35,21 @@ public class BlogPost {
     
     protected BlogPost() {}
 
-    public BlogPost(String titolo, String categoria, String contenuto, int tempoDiLettura) {
+    public BlogPost(Author author, String titolo, String categoria, String contenuto, int tempoDiLettura) {
+        this.setAuthor(author);
         this.setTitolo(titolo);
         this.setCategoria(categoria);
         this.setContenuto(contenuto);
         this.setTempoDiLettura(tempoDiLettura);
         this.setDefaultCoverUrl();
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 
     public String getCategoria() {

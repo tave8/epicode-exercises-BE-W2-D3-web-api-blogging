@@ -3,29 +3,30 @@ package giuseppetavella.web_api_blogging.payloads;
 import java.util.UUID;
 
 public class NewBlogPostPayload {
+    
+    private final UUID authorId;
+    private final String categoria;
+    private final String titolo;
+    private final String contenuto;
+    private final int tempoDiLettura;
 
-    private String categoria;
-    private String titolo;
-    private String contenuto;
-    private int tempoDiLettura;
-
-    public NewBlogPostPayload(String titolo, String categoria, String contenuto, int tempoDiLettura) {
+    public NewBlogPostPayload(UUID authorId, String titolo, String categoria, String contenuto, int tempoDiLettura) {
+        this.authorId = authorId;
         this.titolo = titolo;
         this.categoria = categoria;
         this.contenuto = contenuto;
-        // FIX 
-        // if (tempoDiLettura == null) {
-        //    
-        // }
         this.tempoDiLettura = tempoDiLettura;
     }
 
+    public UUID getAuthorId() {
+        return this.authorId;
+    }
+    
     public String getCategoria() {
         return categoria;
     }
 
-
-
+    
     public String getContenuto() {
         return contenuto;
     }
