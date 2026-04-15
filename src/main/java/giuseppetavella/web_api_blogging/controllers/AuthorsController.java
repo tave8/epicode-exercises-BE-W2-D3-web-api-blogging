@@ -24,12 +24,11 @@ public class AuthorsController {
         return this.authorsService.findAll(); 
     }
     
-    // @GetMapping("/{authorId}")
-    // public Author findOne(@PathVariable String authorId) {
-    //     // System.out.println(authorId);
-    //     return authorsService.findOne(authorId);
-    // }
-    //
+    @GetMapping("/{authorId}")
+    public Author findById(@PathVariable UUID authorId) {
+        return this.authorsService.findById(authorId);
+    }
+
     
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping

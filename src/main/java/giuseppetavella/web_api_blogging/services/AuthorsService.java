@@ -2,6 +2,7 @@ package giuseppetavella.web_api_blogging.services;
 
 
 import giuseppetavella.web_api_blogging.entities.Author;
+import giuseppetavella.web_api_blogging.exceptions.NotFoundException;
 import giuseppetavella.web_api_blogging.payloads.NewAuthorPayload;
 import giuseppetavella.web_api_blogging.repositories.AuthorsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -58,29 +60,15 @@ public class AuthorsService {
     //
     //
     //
-    // public Author findOne(String authorIdStr) {
-    //     UUID authorId;
-    //    
-    //     try {
-    //         authorId = UUID.fromString(authorIdStr);
-    //     } catch (IllegalArgumentException ex) {
-    //         throw new IllegalArgumentException(ex);
-    //     }
-    //    
-    //     Author authorFound = null;
-    //    
-    //     // find by id
-    //     for (Author author : this.authors) {
-    //         if (author.getAuthorId().equals(authorId)) {
-    //             authorFound = author;
-    //         }
-    //     }
-    //    
-    //     if (authorFound == null) {
-    //         throw new RuntimeException("author with ID " + authorIdStr + " was not found");
-    //     }
-    //    
-    //     return authorFound;
-    // }
+    
+    public Author findById(UUID authorId) throws NotFoundException {
+        Optional<Author> maybeAuthor = this.authorsRepository.findById(authorId);
+        
+        if (maybeAuthor.isEmpty()) {
+            throw new NotFoundException(authorId, "autore");
+        }
+        
+        return maybeAuthor.get();
+    }
     
 }
