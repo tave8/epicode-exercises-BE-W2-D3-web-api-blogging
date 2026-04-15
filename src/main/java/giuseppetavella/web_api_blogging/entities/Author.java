@@ -37,12 +37,9 @@ public class Author {
         this.setCognome(cognome);
         this.setEmail(email);
         this.setDataNascita(dataNascita);
+        this.setDefaultAvatarUrl();
     }
-
-    public String getAvatarUrl() {
-        String nomeCompleto = this.getNome() + "+" + this.getCognome();
-        return "https://ui-avatars.com/api/?name=" + nomeCompleto;
-    }
+    
     
     public String getCognome() {
         return cognome;
@@ -80,6 +77,20 @@ public class Author {
         this.nome = nome;
     }
 
+
+    public String getDefaultAvatarUrl() {
+        String nomeCompleto = this.getNome() + "+" + this.getCognome();
+        return "https://ui-avatars.com/api/?name=" + nomeCompleto;
+    }
+    
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+    
+    public void setDefaultAvatarUrl() {
+        this.setAvatarUrl(this.getDefaultAvatarUrl());
+    }
+    
     @Override
     public String toString() {
         return "Author{" +
