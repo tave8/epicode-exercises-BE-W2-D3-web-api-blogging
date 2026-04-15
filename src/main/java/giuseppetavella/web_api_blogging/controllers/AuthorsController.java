@@ -1,0 +1,51 @@
+package giuseppetavella.web_api_blogging.controllers;
+
+
+import giuseppetavella.web_api_blogging.entities.Author;
+import giuseppetavella.web_api_blogging.payloads.NewAuthorPayload;
+import giuseppetavella.web_api_blogging.services.AuthorsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
+
+@RestController
+@RequestMapping("/authors")
+public class AuthorsController {
+    
+    @Autowired
+    private AuthorsService authorsService;
+    
+    
+    @GetMapping
+    public List<Author> findAll() {
+        return authorsService.findAll(); 
+    }
+    
+    @GetMapping("/{authorId}")
+    public Author findOne(@PathVariable String authorId) {
+        // System.out.println(authorId);
+        return authorsService.findOne(authorId);
+    }
+    
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public Author add(@RequestBody NewAuthorPayload body) {
+        return authorsService.add(body);
+    }
+
+    @PutMapping("/{authorId}")
+    public Author update(@PathVariable String authorId, @RequestBody NewAuthorPayload body) {
+        return authorsService.update(authorId, body);
+    }
+
+    
+    @DeleteMapping("/{authorId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable String authorId) {
+        authorsService.delete(authorId);
+    }
+    
+}
