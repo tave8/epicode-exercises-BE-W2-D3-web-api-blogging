@@ -2,6 +2,7 @@ package giuseppetavella.web_api_blogging.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -33,6 +34,9 @@ public class BlogPost {
     @Column(name = "cover_url", nullable = false)
     private String coverUrl;
     
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+    
     protected BlogPost() {}
 
     public BlogPost(Author author, String titolo, String categoria, String contenuto, int tempoDiLettura) {
@@ -42,6 +46,7 @@ public class BlogPost {
         this.setContenuto(contenuto);
         this.setTempoDiLettura(tempoDiLettura);
         this.setDefaultCoverUrl();
+        this.createdAt = LocalDateTime.now();
     }
 
     public Author getAuthor() {
