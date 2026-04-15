@@ -65,7 +65,7 @@ public class AuthorsService {
         
         // find by id
         for (Author author : this.authors) {
-            if (author.getId().equals(authorId)) {
+            if (author.getAuthorId().equals(authorId)) {
                 authorFound = author;
             }
         }

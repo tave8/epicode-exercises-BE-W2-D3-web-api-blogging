@@ -1,22 +1,42 @@
 package giuseppetavella.web_api_blogging.entities;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.util.UUID;
 
+
+@Entity
+@Table(name = "authors")
 public class Author {
     
-    private final UUID id;
+    @Id
+    @GeneratedValue
+    @Column(name = "author_id")
+    private UUID authorId;
+    
+    @Column(nullable = false)
     private String nome;
+
+    @Column(nullable = false)
     private String cognome;
+    
+    @Column(unique = true, nullable = false)
     private String email;
+
+    @Column(name = "data_nascita", nullable = false)
     private LocalDate dataNascita;
+    
+    @Column(name = "avatar_url", nullable = false)
+    private String avatarUrl;
+    
+    protected Author() {}
     
     public Author(String nome, String cognome, String email, LocalDate dataNascita) {
         this.setNome(nome);
         this.setCognome(cognome);
         this.setEmail(email);
         this.setDataNascita(dataNascita);
-        this.id = UUID.randomUUID();
     }
 
     public String getAvatarUrl() {
@@ -40,8 +60,8 @@ public class Author {
         this.email = email;
     }
 
-    public UUID getId() {
-        return id;
+    public UUID getAuthorId() {
+        return authorId;
     }
 
     public LocalDate getDataNascita() {
@@ -63,7 +83,7 @@ public class Author {
     @Override
     public String toString() {
         return "Author{" +
-                ", id=" + id +
+                ", id=" + getAuthorId() +
                 ", nome='" + nome + '\'' +
                 ", cognome='" + cognome + '\'' +
                 ", email='" + email + '\'' +
