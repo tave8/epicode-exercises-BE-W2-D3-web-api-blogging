@@ -67,7 +67,7 @@ public class BlogPostsService {
 
         // find by id
         for (BlogPost blogPost : this.blogPosts) {
-            if (blogPost.getId().equals(blogPostId)) {
+            if (blogPost.getBlogPostId().equals(blogPostId)) {
                 blogPostFound = blogPost;
             }
         }

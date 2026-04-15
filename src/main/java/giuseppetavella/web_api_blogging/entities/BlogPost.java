@@ -1,21 +1,46 @@
 package giuseppetavella.web_api_blogging.entities;
 
+import jakarta.persistence.*;
+
 import java.util.UUID;
 
+@Entity
+@Table(name = "blog_posts")
 public class BlogPost {
 
-    private final UUID id;
+    @Id
+    @GeneratedValue
+    @Column(name = "blog_post_id")
+    private UUID blogPostId;
+    
+    // foreign key: N blog posts ---belong to--> 1 author
+    @ManyToOne
+    @JoinColumn(name = "author_id", nullable = false)
+    private Author author;
+    
+    @Column(nullable = false)
     private String categoria;
+    
+    @Column(nullable = false)
     private String titolo;
+
+    @Column(nullable = false)
     private String contenuto;
+
+    @Column(name = "tempo_di_lettura", nullable = false)
     private int tempoDiLettura;
+    
+    @Column(name = "cover_url", nullable = false)
+    private String coverUrl;
+    
+    protected BlogPost() {}
 
     public BlogPost(String titolo, String categoria, String contenuto, int tempoDiLettura) {
         this.setTitolo(titolo);
         this.setCategoria(categoria);
         this.setContenuto(contenuto);
         this.setTempoDiLettura(tempoDiLettura);
-        this.id = UUID.randomUUID();
+        this.setDefaultCoverUrl();
     }
 
     public String getCategoria() {
@@ -50,12 +75,32 @@ public class BlogPost {
         this.titolo = titolo;
     }
 
-    public UUID getId() {
-        return id;
+    public UUID getBlogPostId() {
+        return blogPostId;
     }
 
-    public String getCover() {
+
+    public void setCoverUrl(String coverUrl) {
+        this.coverUrl = coverUrl;
+    }
+    
+    public void setDefaultCoverUrl() {
+        this.setCoverUrl(this.getDefaultCoverUrl());
+    }
+
+    public String getDefaultCoverUrl() {
         return "https://fastly.picsum.photos/id/217/200/300.jpg?hmac=3GPQ-pPnL4D8miCKA0qNqIg4zr5Ponvl9OVH83CeGuc";
     }
     
+    @Override
+    public String toString() {
+        return "BlogPost{" +
+                "author=" + author +
+                ", blogPostId=" + blogPostId +
+                ", categoria='" + categoria + '\'' +
+                ", titolo='" + titolo + '\'' +
+                ", contenuto='" + contenuto + '\'' +
+                ", tempoDiLettura=" + tempoDiLettura +
+                '}';
+    }
 }
