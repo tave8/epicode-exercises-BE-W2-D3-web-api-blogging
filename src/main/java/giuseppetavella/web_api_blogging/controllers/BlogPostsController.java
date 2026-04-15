@@ -3,6 +3,7 @@ package giuseppetavella.web_api_blogging.controllers;
 
 import giuseppetavella.web_api_blogging.entities.Author;
 import giuseppetavella.web_api_blogging.entities.BlogPost;
+import giuseppetavella.web_api_blogging.payloads.BlogPostToSendPayload;
 import giuseppetavella.web_api_blogging.payloads.NewAuthorPayload;
 import giuseppetavella.web_api_blogging.payloads.NewBlogPostPayload;
 import giuseppetavella.web_api_blogging.services.BlogPostsService;
@@ -33,9 +34,11 @@ public class BlogPostsController {
     }
 
     @GetMapping("/{blogPostId}")
-    public BlogPost findById(@PathVariable UUID blogPostId) {
-        return this.blogPostsService.findById(blogPostId);
+    public BlogPostToSendPayload findById(@PathVariable UUID blogPostId) {
+        return this.blogPostsService.findByIdAsPayload(blogPostId);
     }
+    
+    // fare un payload custom per blog post e ritornare quello
 
     
     @ResponseStatus(HttpStatus.CREATED)

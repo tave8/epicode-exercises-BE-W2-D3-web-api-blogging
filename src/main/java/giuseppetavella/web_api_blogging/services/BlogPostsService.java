@@ -4,6 +4,7 @@ package giuseppetavella.web_api_blogging.services;
 import giuseppetavella.web_api_blogging.entities.Author;
 import giuseppetavella.web_api_blogging.entities.BlogPost;
 import giuseppetavella.web_api_blogging.exceptions.NotFoundException;
+import giuseppetavella.web_api_blogging.payloads.BlogPostToSendPayload;
 import giuseppetavella.web_api_blogging.payloads.NewAuthorPayload;
 import giuseppetavella.web_api_blogging.payloads.NewBlogPostPayload;
 import giuseppetavella.web_api_blogging.repositories.AuthorsRepository;
@@ -38,8 +39,11 @@ public class BlogPostsService {
         // page is the function that will get translated to SQL,
         // that will in turn filter the result set
         Pageable pageable = PageRequest.of(finalPage, finalSize, Sort.by(sortBy));
+        // fare map tra gli oggetti del content e quello che voglio tornare (rappresentazione)
         return this.blogPostsRepository.findAll(pageable);
     }
+    
+    
 
     public BlogPost saveNewBlogPost(NewBlogPostPayload body) throws NotFoundException {
         // fai i controlli qui dentro
@@ -80,6 +84,20 @@ public class BlogPostsService {
     //     return blogPost;
     // }
 
+
+    public BlogPostToSendPayload findByIdAsPayload(UUID blogPostId) {
+        BlogPost blogPost = this.findById(blogPostId);
+        // map 
+        BlogPostToSendPayload blogPostToSendPayload = new BlogPostToSendPayload(
+                blogPost.getBlogPostId(),
+                blogPost.getTitolo(),
+                blogPost.getCategoria(),
+                blogPost.getContenuto(),
+                blogPost.getTempoDiLettura()
+        );
+        
+        return blogPostToSendPayload;
+    }
 
 
     public BlogPost findById(UUID blogPostId) {
