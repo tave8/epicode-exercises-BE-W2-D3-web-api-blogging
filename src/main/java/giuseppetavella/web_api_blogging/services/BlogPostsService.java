@@ -42,6 +42,21 @@ public class BlogPostsService {
         // fare map tra gli oggetti del content e quello che voglio tornare (rappresentazione)
         return this.blogPostsRepository.findAll(pageable);
     }
+
+    public Page<BlogPostToSendPayload> findAllAsPayload(int page, int size, String sortBy) {
+       Page<BlogPost> blogPosts = this.findAll(page, size, sortBy);
+       
+       return blogPosts.map(blogPost -> {
+          return new BlogPostToSendPayload(
+              blogPost.getBlogPostId(),
+              blogPost.getTitolo(),
+              blogPost.getCategoria(),
+              blogPost.getContenuto(),
+              blogPost.getTempoDiLettura()
+          ); 
+       });
+    }
+    
     
     
 

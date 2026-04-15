@@ -23,14 +23,14 @@ public class BlogPostsController {
     private BlogPostsService blogPostsService;
 
     @GetMapping
-    public Page<BlogPost> findAll(@RequestParam(defaultValue = "0") int page,
+    public Page<BlogPostToSendPayload> findAll(@RequestParam(defaultValue = "0") int page,
                                   @RequestParam(defaultValue = "10") int size,
                                   // FIX: il default value deve essere l'attributo dell'oggetto.
                                   // prima avevo scritto created_at e mi dice che "non trovava
                                   // la proprietà created sull'entità BlogPost". era un messaggio di errore non corretto,
                                   // perché sembra si fosse dimenticato la parte dopo l'underscore (_at)
                                   @RequestParam(defaultValue = "createdAt") String sortBy) {
-        return this.blogPostsService.findAll(page, size, sortBy);
+        return this.blogPostsService.findAllAsPayload(page, size, sortBy);
     }
 
     @GetMapping("/{blogPostId}")
