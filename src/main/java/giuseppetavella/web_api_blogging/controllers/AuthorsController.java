@@ -21,31 +21,33 @@ public class AuthorsController {
     
     @GetMapping
     public List<Author> findAll() {
-        return authorsService.findAll(); 
+        return this.authorsService.findAll(); 
     }
     
-    @GetMapping("/{authorId}")
-    public Author findOne(@PathVariable String authorId) {
-        // System.out.println(authorId);
-        return authorsService.findOne(authorId);
-    }
+    // @GetMapping("/{authorId}")
+    // public Author findOne(@PathVariable String authorId) {
+    //     // System.out.println(authorId);
+    //     return authorsService.findOne(authorId);
+    // }
+    //
     
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Author add(@RequestBody NewAuthorPayload body) {
-        return authorsService.add(body);
+        return this.authorsService.addNewAuthor(body);
     }
-
-    @PutMapping("/{authorId}")
-    public Author update(@PathVariable String authorId, @RequestBody NewAuthorPayload body) {
-        return authorsService.update(authorId, body);
-    }
-
     
-    @DeleteMapping("/{authorId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable String authorId) {
-        authorsService.delete(authorId);
-    }
+    //
+    // @PutMapping("/{authorId}")
+    // public Author update(@PathVariable String authorId, @RequestBody NewAuthorPayload body) {
+    //     return authorsService.update(authorId, body);
+    // }
+    //
+    //
+    // @DeleteMapping("/{authorId}")
+    // @ResponseStatus(HttpStatus.NO_CONTENT)
+    // public void delete(@PathVariable String authorId) {
+    //     authorsService.delete(authorId);
+    // }
     
 }
